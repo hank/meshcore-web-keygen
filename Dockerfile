@@ -13,7 +13,8 @@ COPY wasm/Cargo.toml wasm/Cargo.lock ./
 COPY wasm/src ./src
 
 RUN wasm-pack build --target web --release \
-    && rm -f pkg/.gitignore pkg/package.json pkg/*.d.ts
+    && rm -f pkg/.gitignore pkg/package.json pkg/*.d.ts \
+    && sed -i "s|new URL('meshcore_keygen_bg.wasm', import.meta.url)|new URL('meshcore_keygen_bg.wasm?v=2', import.meta.url)|" pkg/meshcore_keygen.js
 
 
 # --- Stage 2: nginx serving the static site ---

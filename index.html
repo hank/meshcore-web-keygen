@@ -878,7 +878,7 @@
 
                 try {
                     for (let i = 0; i < this.numWorkers; i++) {
-                        const worker = new Worker('./wasm/worker.js', { type: 'module' });
+                        const worker = new Worker('./wasm/worker.js?v=3', { type: 'module' });
                         const workerInfo = {
                             id: i,
                             worker,

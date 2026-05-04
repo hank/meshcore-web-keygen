@@ -1,4 +1,4 @@
-import init, { generate_batch } from './pkg/meshcore_keygen.js';
+import init, { generate_batch } from './pkg/meshcore_keygen.js?v=2';
 
 let wasmReady = false;
 let running = false;
