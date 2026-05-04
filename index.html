@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23667eea'/><stop offset='1' stop-color='%23764ba2'/></linearGradient></defs><rect width='64' height='64' rx='14' fill='url(%23g)'/><g fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round'><line x1='18' y1='20' x2='32' y2='34'/><line x1='32' y1='34' x2='46' y2='20'/><line x1='18' y1='44' x2='32' y2='34'/><line x1='32' y1='34' x2='46' y2='44'/><line x1='18' y1='20' x2='18' y2='44'/><line x1='46' y1='20' x2='46' y2='44'/></g><g fill='white'><circle cx='18' cy='20' r='3.6'/><circle cx='46' cy='20' r='3.6'/><circle cx='18' cy='44' r='3.6'/><circle cx='46' cy='44' r='3.6'/><circle cx='32' cy='34' r='4.6'/></g><g transform='translate(40 40) rotate(-30)' fill='none' stroke='%23ffd166' stroke-width='2.4' stroke-linecap='round'><circle cx='0' cy='0' r='4' fill='%23ffd166'/><line x1='3.5' y1='0' x2='14' y2='0'/><line x1='10' y1='0' x2='10' y2='3.6'/><line x1='13' y1='0' x2='13' y2='4.5'/></g></svg>">
     <title>MeshCore Custom Key Generator</title>
     <script>
         console.log('✓ Using Web Crypto API for Ed25519 key generation');
@@ -453,6 +455,159 @@
                 font-size: 20px;
             }
         }
+
+        /* ---------- Dark mode (follows OS / browser preference) ---------- */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(135deg, #1b1f33 0%, #2a1d3d 100%);
+                color: #e6e8ed;
+            }
+
+            .container {
+                background: #1e2230;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            }
+
+            .header {
+                background: linear-gradient(135deg, #11141d 0%, #1c2031 100%);
+            }
+
+            label {
+                color: #e6e8ed !important;
+            }
+
+            input[type="text"], select {
+                background: #2a2f40;
+                color: #e6e8ed;
+                border-color: #3a3f55;
+            }
+
+            input[type="text"]::placeholder {
+                color: #7a8095;
+            }
+
+            input[type="text"]:focus, select:focus {
+                border-color: #8c9eff;
+                box-shadow: 0 0 0 3px rgba(140, 158, 255, 0.18);
+            }
+
+            small, .progress-text, .stat-label,
+            .content small[style] {
+                color: #9aa0b4 !important;
+            }
+
+            code {
+                background: #2a2f40;
+                color: #e6e8ed;
+                padding: 1px 5px;
+                border-radius: 4px;
+            }
+
+            .btn-secondary {
+                background: #2a2f40;
+                color: #e6e8ed;
+            }
+            .btn-secondary:hover {
+                background: #353b52;
+            }
+
+            .progress-bar {
+                background: #2a2f40;
+            }
+
+            .result-container {
+                background: #232737;
+                border-left-color: #2ecc71;
+            }
+            .result-container h3 { color: #2ecc71; }
+
+            .key-display {
+                background: #1e2230;
+                border-color: #3a3f55;
+            }
+
+            .key-label {
+                color: #c9cdd9 !important;
+            }
+
+            .key-value {
+                background: #2a2f40 !important;
+                color: #e6e8ed !important;
+                border-color: #3a3f55;
+            }
+
+            .stat-item {
+                background: #232737;
+                border-color: #3a3f55;
+            }
+            .stat-value { color: #e6e8ed; }
+
+            /* Difficulty estimate panel (uses inline styles in markup) */
+            #prefixInfo[style] {
+                background: #232737 !important;
+                border-left-color: #8c9eff !important;
+            }
+            #prefixInfo div[style*="color: #2c3e50"],
+            #prefixInfo div[style*="color:#2c3e50"] {
+                color: #e6e8ed !important;
+            }
+            #prefixDifficulty {
+                color: #c9cdd9 !important;
+            }
+            #prefixDifficulty div[style*="color: #7f8c8d"],
+            #prefixDifficulty div[style*="color:#7f8c8d"] {
+                color: #9aa0b4 !important;
+            }
+
+            .error {
+                background: #3a1f24;
+                color: #ff8a8a;
+                border-left-color: #c0392b;
+            }
+
+            .info {
+                background: #1d2a3d;
+                color: #8ebcff;
+                border-left-color: #2980b9;
+            }
+
+            /* JS-injected reserved-pattern warning (uses cssText) */
+            #reservedPrefixWarning {
+                background: #3a2f1f !important;
+                border-color: #6b5a2b !important;
+                color: #f3d28a !important;
+            }
+
+            .modal-content {
+                background-color: #1e2230;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            }
+
+            .modal-header {
+                background: linear-gradient(135deg, #11141d 0%, #1c2031 100%);
+            }
+
+            .import-section {
+                background: #232737;
+                border-left-color: #8c9eff;
+            }
+            .import-section h4 {
+                color: #e6e8ed;
+            }
+
+            .warning-box {
+                background: #3a2f1f;
+                border-color: #6b5a2b;
+                color: #f3d28a;
+            }
+            .warning-box strong {
+                color: #ff8a8a;
+            }
+
+            .footer { color: rgba(230, 232, 237, 0.6); }
+            .footer a { color: rgba(230, 232, 237, 0.85); }
+            .footer a:hover { color: #fff; }
+        }
     </style>
 </head>
 <body>
@@ -528,12 +683,15 @@
 
             <form id="keygenForm">
                 <div class="form-group">
-                    <label for="targetPrefix">Target Prefix (Hex):</label>
-                    <input type="text" id="targetPrefix" class="hex-input" 
-                           placeholder="Enter hex prefix (e.g., F8, F8A1, FFF, etc.)" 
-                           maxlength="8" pattern="[0-9A-Fa-f]+">
+                    <label for="targetPrefix">Target Pattern (Hex):</label>
+                    <input type="text" id="targetPrefix" class="hex-input"
+                           placeholder="e.g. F8, F8A1, or XXXX1776 (XX = wildcard byte)"
+                           maxlength="16" pattern="[0-9A-FXa-fx ]+">
                     <small style="color: #7f8c8d; margin-top: 5px; display: block;">
-                        Enter any hex prefix (1-8 characters). Longer prefixes take longer to find.
+                        Hex pattern, up to 16 nibbles. Use <code>X</code> as a wildcard nibble — e.g.
+                        <code>XXXX1776</code> matches any key whose 3rd–4th bytes are <code>17 76</code>
+                        (handy when the full prefix would clash with nearby MeshCore nodes).
+                        Difficulty grows with the count of fixed (non-X) nibbles.
                     </small>
                     <div id="prefixInfo" style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea; display: none;">
                         <div style="font-weight: 600; color: #2c3e50; margin-bottom: 5px;">📊 Difficulty Estimate</div>
@@ -690,61 +848,16 @@
 
             async initialize() {
                 if (!this.initialized) {
-                    let libraryUrl = null;
+                    // Load Ed25519 library locally — no third-party CDNs.
                     try {
-                        // Use unpkg.com for the latest version (recommended)
-                        libraryUrl = 'https://unpkg.com/noble-ed25519@latest';
-                        nobleEd25519 = await import(libraryUrl);
+                        nobleEd25519 = await import('./js/noble-ed25519.js');
                         this.initialized = true;
-                        console.log('✓ noble-ed25519 library loaded successfully from unpkg.com');
+                        console.log('✓ noble-ed25519 library loaded (local)');
                         console.log('Available functions:', Object.keys(nobleEd25519));
-                    } catch (error) {
-                        console.warn('Failed to load from unpkg.com, trying jsDelivr:', error.message);
-                        try {
-                            // Fallback to jsDelivr
-                            libraryUrl = 'https://cdn.jsdelivr.net/npm/noble-ed25519@latest';
-                            nobleEd25519 = await import(libraryUrl);
-                            this.initialized = true;
-                            console.log('✓ noble-ed25519 library loaded successfully from jsDelivr');
-                            console.log('Available functions:', Object.keys(nobleEd25519));
-                        } catch (fallbackError) {
-                            console.warn('Failed to load from jsDelivr, trying esm.sh:', fallbackError.message);
-                            try {
-                                // Fallback to esm.sh (alternative CDN)
-                                libraryUrl = 'https://esm.sh/noble-ed25519@latest';
-                                nobleEd25519 = await import(libraryUrl);
-                                this.initialized = true;
-                                console.log('✓ noble-ed25519 library loaded successfully from esm.sh');
-                                console.log('Available functions:', Object.keys(nobleEd25519));
-                            } catch (esmError) {
-                                console.warn('Failed to load from esm.sh, trying Skypack:', esmError.message);
-                                try {
-                                    // Fallback to Skypack
-                                    libraryUrl = 'https://cdn.skypack.dev/noble-ed25519';
-                                    nobleEd25519 = await import(libraryUrl);
-                                    this.initialized = true;
-                                    console.log('✓ noble-ed25519 library loaded successfully from Skypack');
-                                    console.log('Available functions:', Object.keys(nobleEd25519));
-                                } catch (skypackError) {
-                                    console.warn('Failed to load from Skypack, trying offline fallback:', skypackError.message);
-                                    try {
-                                        // Final fallback: offline version
-                                        libraryUrl = './noble-ed25519-offline-simple.js';
-                                        nobleEd25519 = await import(libraryUrl);
-                                        this.initialized = true;
-                                        console.log('✓ noble-ed25519 library loaded successfully (offline fallback)');
-                                        console.log('Available functions:', Object.keys(nobleEd25519));
-                                    } catch (offlineError) {
-                                        console.error('Failed to load noble-ed25519 library from all sources:', offlineError);
-                                        throw new Error('Failed to load Ed25519 library. Please check your internet connection and ensure noble-ed25519-offline-simple.js is available.');
-                                    }
-                                }
-                            }
-                        }
+                    } catch (loadError) {
+                        console.error('Failed to load local noble-ed25519:', loadError);
+                        throw new Error('Failed to load Ed25519 library (./js/noble-ed25519.js).');
                     }
-                    
-                    // Store the library URL for workers to use (they'll import from the same URL)
-                    this.libraryUrl = libraryUrl;
 
                     // Initialize Web Workers with WASM acceleration
                     if (typeof WebAssembly === 'undefined') {
@@ -813,9 +926,16 @@
                 return hex;
             }
 
-            // Check if public key matches the target prefix
-            checkPrefix(publicKeyHex, targetPrefix) {
-                return publicKeyHex.startsWith(targetPrefix.toUpperCase());
+            // Check if public key matches the target pattern (X = wildcard nibble).
+            checkPattern(publicKeyHex, targetPattern) {
+                const pat = targetPattern.replace(/\s+/g, '').toUpperCase();
+                if (pat.length > publicKeyHex.length) return false;
+                for (let i = 0; i < pat.length; i++) {
+                    const c = pat[i];
+                    if (c === 'X' || c === '?') continue;
+                    if (c !== publicKeyHex[i]) return false;
+                }
+                return true;
             }
 
             handleWorkerError(workerInfo, error) {
@@ -879,7 +999,7 @@
                 }
             }
 
-            startWorkerSearch(targetPrefix) {
+            startWorkerSearch(targetPattern) {
                 if (this.workers.length === 0) {
                     return Promise.reject(new Error('No workers available for key generation.'));
                 }
@@ -905,7 +1025,7 @@
                         workerInfo.worker.postMessage({
                             type: 'start',
                             jobId,
-                            targetPrefix,
+                            targetPattern,
                             batchSize: this.batchSize,
                             adaptiveBatching: true,
                             targetBatchMs: this.targetBatchMs,
@@ -917,11 +1037,11 @@
                 });
             }
 
-            async startJsFallbackSearch(targetPrefix) {
+            async startJsFallbackSearch(targetPattern) {
                 await this.loadJsFallback(this.jsFallbackReason || 'WASM path unavailable');
                 const fallbackBatchSize = Math.max(64, Math.floor(this.batchSize / 2));
                 return this.jsFallbackModule.searchVanityKey({
-                    targetPrefix,
+                    targetPattern,
                     batchSize: fallbackBatchSize,
                     getNobleEd25519: () => nobleEd25519,
                     shouldStop: () => this.stopRequested || !this.isRunning,
@@ -982,11 +1102,14 @@
                         // Use Point.BASE.multiply which accepts pre-clamped scalars (no double clamping)
                         let derivedPublicKey;
                         try {
-                            // Convert scalar to BigInt for Point.BASE.multiply
+                            // Convert clamped scalar to BigInt and reduce mod curve order N.
+                            // [a]G == [a mod N]G; noble v3's multiply rejects scalars >= N.
+                            const ED25519_N = 0x1000000000000000000000000000000014def9dea2f79cd65812631a5cf5d3edn;
                             let scalarBigInt = 0n;
                             for (let i = 0; i < 32; i++) {
                                 scalarBigInt += BigInt(clampedScalar[i]) << BigInt(8 * i);
                             }
+                            scalarBigInt = scalarBigInt % ED25519_N;
                             derivedPublicKey = nobleEd25519.Point.BASE.multiply(scalarBigInt);
                         } catch (error) {
                             // Fallback to getPublicKey if Point.BASE.multiply fails
@@ -1044,14 +1167,15 @@
                 }
             }
 
-            // Generate keys until we find a match
-            async generateVanityKey(targetPrefix, prefixLength) {
+            // Generate keys until we find a match. `fixedNibbles` is the number of
+            // non-wildcard nibbles in the pattern — that drives difficulty.
+            async generateVanityKey(targetPattern, fixedNibbles) {
                 this.isRunning = true;
                 this.stopRequested = false;
                 this.attempts = 0;
                 this.startTime = Date.now();
                 this.lastUpdateTime = this.startTime;
-                this.currentTargetPrefix = targetPrefix; // Store for difficulty estimate updates
+                this.currentTargetPattern = targetPattern;
 
                 const updateProgress = () => {
                     if (!this.isRunning) return;
@@ -1090,7 +1214,7 @@
                     progressText.textContent = progressLine;
 
                     // Estimate progress based on probability
-                    const probability = 1 / Math.pow(16, prefixLength);
+                    const probability = 1 / Math.pow(16, fixedNibbles);
                     const expectedAttempts = 1 / probability;
                     const progress = Math.min((this.attempts / expectedAttempts) * 100, 99);
                     
@@ -1108,7 +1232,7 @@
                     // Update every 10 seconds, starting after first 10 seconds
                     if (elapsed - lastDifficultyUpdate >= 10 && elapsed >= 10) {
                         const rate = this.attempts / elapsed;
-                        updateDifficultyEstimate(this.currentTargetPrefix, rate);
+                        updateDifficultyEstimate(this.currentTargetPattern, rate);
                         lastDifficultyUpdate = elapsed;
                     }
                 }, 10000); // Check every 10 seconds
@@ -1116,13 +1240,13 @@
                 try {
                     let matched = null;
                     if (this.generationMode === 'js-fallback') {
-                        matched = await this.startJsFallbackSearch(targetPrefix);
+                        matched = await this.startJsFallbackSearch(targetPattern);
                     } else {
                         try {
-                            matched = await this.startWorkerSearch(targetPrefix);
+                            matched = await this.startWorkerSearch(targetPattern);
                         } catch (workerError) {
                             await this.loadJsFallback(`WASM search failed: ${workerError.message}`);
-                            matched = await this.startJsFallbackSearch(targetPrefix);
+                            matched = await this.startJsFallbackSearch(targetPattern);
                         }
                     }
                     if (!matched) {
@@ -1183,7 +1307,7 @@
 
         // Debug helper for repeatable perf checks from the browser console:
         // await runPerfSmoke('F8', 10)
-        window.runPerfSmoke = async function(prefix = 'F8', durationSeconds = 10) {
+        window.runPerfSmoke = async function(pattern = 'F8', durationSeconds = 10) {
             const samples = [];
             keyGenerator.perfDebug = true;
             const sampleTimer = setInterval(() => {
@@ -1195,7 +1319,9 @@
             }, 1000);
 
             try {
-                const runPromise = keyGenerator.generateVanityKey(prefix.toUpperCase(), prefix.length);
+                const normalized = pattern.replace(/\s+/g, '').toUpperCase();
+                const fixedNibbles = [...normalized].filter(c => c !== 'X' && c !== '?').length;
+                const runPromise = keyGenerator.generateVanityKey(normalized, fixedNibbles);
                 await new Promise(resolve => setTimeout(resolve, Math.max(1, durationSeconds) * 1000));
                 keyGenerator.stop();
                 await runPromise.catch(() => null);
@@ -1208,7 +1334,7 @@
                 const mid = Math.floor(sorted.length / 2);
                 const median = sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
                 return {
-                    prefix: prefix.toUpperCase(),
+                    pattern: pattern.toUpperCase(),
                     durationSeconds,
                     samples: sorted.map(v => Math.round(v)),
                     medianKeysPerSec: Math.round(median)
@@ -1231,18 +1357,32 @@
         const importModal = document.getElementById('importModal');
         const closeModal = document.getElementById('closeModal');
 
+        // Count fixed (non-wildcard) nibbles in a normalized pattern.
+        function countFixedNibbles(pattern) {
+            let n = 0;
+            for (const c of pattern) {
+                if (c !== 'X' && c !== '?') n++;
+            }
+            return n;
+        }
+
         // Calculate and display difficulty estimate
-        function updateDifficultyEstimate(prefix, currentRate = null) {
+        function updateDifficultyEstimate(pattern, currentRate = null) {
             const prefixInfo = document.getElementById('prefixInfo');
             const prefixDifficulty = document.getElementById('prefixDifficulty');
-            
-            if (!prefix || prefix.length === 0) {
+
+            if (!pattern || pattern.length === 0) {
                 prefixInfo.style.display = 'none';
                 return;
             }
             
-            // Calculate probability and expected attempts
-            const probability = 1 / Math.pow(16, prefix.length);
+            // Calculate probability and expected attempts based on fixed nibbles only.
+            const fixedNibbles = countFixedNibbles(pattern);
+            if (fixedNibbles === 0) {
+                prefixInfo.style.display = 'none';
+                return;
+            }
+            const probability = 1 / Math.pow(16, fixedNibbles);
             const expectedAttempts = 1 / probability;
             
             // Format the expected attempts in a human-readable way
@@ -1329,59 +1469,62 @@
             prefixInfo.style.display = 'block';
         }
 
+        // Normalize input: strip whitespace, uppercase. Returns pattern string.
+        function normalizePattern(raw) {
+            return raw.replace(/\s+/g, '').toUpperCase();
+        }
+
         // Update difficulty estimate when user types
         targetPrefixInput.addEventListener('input', (e) => {
-            const prefix = e.target.value.trim().toUpperCase();
-            if (/^[0-9A-F]*$/.test(prefix)) {
-                updateDifficultyEstimate(prefix);
-                checkReservedPrefix(prefix);
+            const pattern = normalizePattern(e.target.value);
+            const validChars = /^[0-9A-FX?]*$/.test(pattern);
+            if (validChars) {
+                updateDifficultyEstimate(pattern);
+                checkReservedPattern(pattern);
             } else {
-                // If invalid hex characters, disable button
                 generateBtn.disabled = true;
-                // Also check reserved prefix in case user is typing
-                checkReservedPrefix(prefix);
+                checkReservedPattern(pattern);
             }
-            
-            // If prefix is empty, disable button
-            if (prefix.length === 0) {
+
+            if (pattern.length === 0) {
                 generateBtn.disabled = true;
             }
         });
 
-        // Check for reserved prefixes and show warning, disable button if reserved
-        function checkReservedPrefix(prefix) {
+        // Warn (and disable) only when the *first byte* is fully fixed AND equals 00 or FF.
+        // A leading wildcard (XX...) is fine — that's the whole point of the offset feature.
+        function checkReservedPattern(pattern) {
             const existingWarning = document.getElementById('reservedPrefixWarning');
             if (existingWarning) {
                 existingWarning.remove();
             }
 
-            // Check if prefix is reserved (starts with 00 or FF)
-            const isReserved = prefix.length >= 2 && (prefix.startsWith('00') || prefix.startsWith('FF'));
-            
+            const firstByteFullyFixed = pattern.length >= 2
+                && /^[0-9A-F]{2}/.test(pattern);
+            const isReserved = firstByteFullyFixed
+                && (pattern.startsWith('00') || pattern.startsWith('FF'));
+
             if (isReserved) {
                 const warningDiv = document.createElement('div');
                 warningDiv.id = 'reservedPrefixWarning';
                 warningDiv.style.cssText = 'background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 12px; margin-top: 10px; color: #856404; font-size: 14px;';
-                warningDiv.innerHTML = `<strong>⚠️ Warning:</strong> Prefixes starting with "00" or "FF" are reserved by MeshCore and may cause unexpected behavior in the network.`;
-                
+                warningDiv.innerHTML = `<strong>⚠️ Warning:</strong> Patterns where the first byte is <code>00</code> or <code>FF</code> are reserved by MeshCore and cannot be used. Try a wildcard (<code>XX</code>) for the first byte.`;
+
                 const prefixInfo = document.getElementById('prefixInfo');
                 if (prefixInfo && prefixInfo.style.display !== 'none') {
                     prefixInfo.parentNode.insertBefore(warningDiv, prefixInfo.nextSibling);
                 } else {
                     targetPrefixInput.parentNode.appendChild(warningDiv);
                 }
-                
-                // Disable the Generate Key button
+
                 generateBtn.disabled = true;
             } else {
-                // Enable the Generate Key button if prefix is valid and not reserved
-                // Only enable if prefix is not empty, valid hex, and within length limit
-                if (prefix.length > 0 && /^[0-9A-F]+$/.test(prefix) && prefix.length <= 8) {
-                    generateBtn.disabled = false;
-                } else if (prefix.length === 0) {
-                    // Disable if empty
-                    generateBtn.disabled = true;
-                }
+                const fixed = countFixedNibbles(pattern);
+                const valid = pattern.length > 0
+                    && pattern.length <= 16
+                    && /^[0-9A-FX?]+$/.test(pattern)
+                    && fixed > 0;
+                generateBtn.disabled = !valid;
             }
         }
 
@@ -1395,27 +1538,33 @@
                 return;
             }
 
-            const targetPrefix = targetPrefixInput.value.trim().toUpperCase();
+            const targetPattern = normalizePattern(targetPrefixInput.value);
 
-            // Validation
-            if (!targetPrefix) {
-                showError('Please enter a target prefix.');
+            if (!targetPattern) {
+                showError('Please enter a target pattern.');
                 return;
             }
 
-            if (targetPrefix.length === 0 || targetPrefix.length > 8) {
-                showError('Prefix must be between 1 and 8 characters long.');
+            if (targetPattern.length > 16) {
+                showError('Pattern must be at most 16 nibbles.');
                 return;
             }
 
-            if (!/^[0-9A-F]+$/.test(targetPrefix)) {
-                showError('Prefix must contain only hexadecimal characters (0-9, A-F).');
+            if (!/^[0-9A-FX?]+$/.test(targetPattern)) {
+                showError('Pattern must contain only hex characters (0-9, A-F) and wildcards (X).');
                 return;
             }
 
-            // Check for reserved prefixes
-            if (targetPrefix.startsWith('00') || targetPrefix.startsWith('FF')) {
-                showError('Prefixes starting with "00" or "FF" are reserved by MeshCore and cannot be used.');
+            const fixedNibbles = countFixedNibbles(targetPattern);
+            if (fixedNibbles === 0) {
+                showError('Pattern must have at least one fixed nibble (not all wildcards).');
+                return;
+            }
+
+            // Reserved-byte check: only when the first byte is fully fixed.
+            if (/^[0-9A-F]{2}/.test(targetPattern)
+                && (targetPattern.startsWith('00') || targetPattern.startsWith('FF'))) {
+                showError('First-byte 00 or FF is reserved by MeshCore. Use XX for the first byte instead.');
                 return;
             }
 
@@ -1443,10 +1592,10 @@
                     document.getElementById('progressText').textContent = `Initialized ${keyGenerator.workers.length} WASM workers for parallel generation...`;
                 }
                 
-                const result = await keyGenerator.generateVanityKey(targetPrefix, targetPrefix.length);
-                
+                const result = await keyGenerator.generateVanityKey(targetPattern, fixedNibbles);
+
                 if (result) {
-                    displayResult(result, targetPrefix);
+                    displayResult(result, targetPattern);
                 } else {
                     showError('Key generation was stopped.');
                 }
@@ -1478,8 +1627,8 @@
         downloadBtn.addEventListener('click', () => {
             const publicKey = document.getElementById('publicKey').textContent;
             const privateKey = document.getElementById('privateKey').textContent;
-            const targetPrefix = targetPrefixInput.value.trim().toUpperCase();
-            
+            const tag = normalizePattern(targetPrefixInput.value);
+
             const meshcoreData = {
                 public_key: publicKey,
                 private_key: privateKey
@@ -1492,7 +1641,7 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `meshcore_${targetPrefix}_${Date.now()}.json`;
+            a.download = `meshcore_${tag}_${Date.now()}.json`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -1573,17 +1722,16 @@
             return urlParams.get(name);
         }
 
-        // Pre-populate prefix from URL parameter
-        const urlPrefix = getUrlParameter('prefix');
-        if (urlPrefix) {
-            const cleanPrefix = urlPrefix.trim().toUpperCase();
-            if (/^[0-9A-F]+$/.test(cleanPrefix) && cleanPrefix.length <= 8) {
-                targetPrefixInput.value = cleanPrefix;
-                updateDifficultyEstimate(cleanPrefix);
-                checkReservedPrefix(cleanPrefix);
+        // Pre-populate pattern from URL parameter (?prefix= still supported, also ?pattern=).
+        const urlPattern = getUrlParameter('pattern') || getUrlParameter('prefix');
+        if (urlPattern) {
+            const cleanPattern = normalizePattern(urlPattern);
+            if (/^[0-9A-FX?]+$/.test(cleanPattern) && cleanPattern.length <= 16) {
+                targetPrefixInput.value = cleanPattern;
+                updateDifficultyEstimate(cleanPattern);
+                checkReservedPattern(cleanPattern);
             }
         } else {
-            // If no prefix on load, disable the button
             generateBtn.disabled = true;
         }
 

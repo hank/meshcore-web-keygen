@@ -1,0 +1,7 @@
+services:
+  meshcore-keygen:
+    build: .
+    container_name: meshcore-keygen
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8090:80"

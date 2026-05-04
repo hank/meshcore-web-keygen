@@ -1,0 +1,10 @@
+.git
+.gitignore
+.gitattributes
+.claude
+.dockerignore
+Dockerfile
+docker-compose.yml
+wasm/target
+wasm/build.sh
+wasm/pkg

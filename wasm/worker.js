@@ -18,20 +18,28 @@ function toHex(bytes) {
         .toUpperCase();
 }
 
-function parsePrefix(targetPrefix) {
-    const prefix = targetPrefix.toUpperCase();
-    const nibbles = prefix.length;
+// Parse a hex pattern with `X` (or `x`) as wildcard nibble.
+// Returns packed pattern bytes and mask bytes (high-nibble-first per byte).
+function parsePattern(targetPattern) {
+    const pattern = targetPattern.replace(/\s+/g, '').toUpperCase();
+    const nibbles = pattern.length;
     const byteLen = Math.ceil(nibbles / 2);
-    const prefixBytes = new Uint8Array(byteLen);
+    const patternBytes = new Uint8Array(byteLen);
+    const maskBytes = new Uint8Array(byteLen);
     for (let i = 0; i < nibbles; i++) {
-        const nibble = parseInt(prefix[i], 16);
+        const ch = pattern[i];
+        const isWild = ch === 'X' || ch === '?';
+        const nibble = isWild ? 0 : parseInt(ch, 16);
+        const maskNib = isWild ? 0 : 0xF;
         if (i & 1) {
-            prefixBytes[i >>> 1] |= nibble;
+            patternBytes[i >>> 1] |= nibble;
+            maskBytes[i >>> 1] |= maskNib;
         } else {
-            prefixBytes[i >>> 1] = nibble << 4;
+            patternBytes[i >>> 1] = nibble << 4;
+            maskBytes[i >>> 1] = maskNib << 4;
         }
     }
-    return { prefixBytes, nibbles };
+    return { patternBytes, maskBytes, nibbles };
 }
 
 function decodeBatchResult(resultBuf) {
@@ -77,7 +85,7 @@ async function runSearchLoop(config) {
     running = true;
     const localRunId = ++currentJobId;
     const jobId = config.jobId ?? localRunId;
-    const { prefixBytes, nibbles } = parsePrefix(config.targetPrefix);
+    const { patternBytes, maskBytes, nibbles } = parsePattern(config.targetPattern);
 
     let batchSize = config.batchSize;
     let attemptedTotal = 0;
@@ -89,7 +97,7 @@ async function runSearchLoop(config) {
 
     while (running && localRunId === currentJobId) {
         const batchStart = performance.now();
-        const resultBuf = generate_batch(prefixBytes, nibbles, batchSize);
+        const resultBuf = generate_batch(patternBytes, maskBytes, nibbles, batchSize);
         const wasmDoneAt = performance.now();
         const decoded = decodeBatchResult(resultBuf);
         const batchEnd = performance.now();
@@ -196,10 +204,10 @@ async function runSearchLoop(config) {
     });
 }
 
-async function runSingleBatch(targetPrefix, batchSize) {
+async function runSingleBatch(targetPattern, batchSize) {
     await ensureInit();
-    const { prefixBytes, nibbles } = parsePrefix(targetPrefix);
-    const resultBuf = generate_batch(prefixBytes, nibbles, batchSize);
+    const { patternBytes, maskBytes, nibbles } = parsePattern(targetPattern);
+    const resultBuf = generate_batch(patternBytes, maskBytes, nibbles, batchSize);
     const decoded = decodeBatchResult(resultBuf);
     self.postMessage({ type: 'results', results: decoded.results, attempted: decoded.attempted });
 }
@@ -211,7 +219,7 @@ self.onmessage = async function(e) {
         running = false;
         await runSearchLoop({
             jobId: e.data.jobId,
-            targetPrefix: e.data.targetPrefix,
+            targetPattern: e.data.targetPattern,
             batchSize: e.data.batchSize,
             adaptiveBatching: Boolean(e.data.adaptiveBatching),
             targetBatchMs: e.data.targetBatchMs ?? 16,
@@ -223,7 +231,6 @@ self.onmessage = async function(e) {
         running = false;
         currentJobId += 1;
     } else if (type === 'generate') {
-        // Backward-compatible one-shot mode.
-        await runSingleBatch(e.data.targetPrefix, e.data.batchSize);
+        await runSingleBatch(e.data.targetPattern, e.data.batchSize);
     }
 };

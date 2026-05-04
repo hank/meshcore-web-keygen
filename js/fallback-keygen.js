@@ -28,12 +28,15 @@ function pointToBytes(point) {
     throw new Error('Unsupported public key format from noble-ed25519');
 }
 
+// Ed25519 group order N. [a]G == [a mod N]G; noble v3's multiply rejects scalars >= N.
+const ED25519_N = 0x1000000000000000000000000000000014def9dea2f79cd65812631a5cf5d3edn;
+
 function buildScalarBigInt(clampedScalar) {
     let scalar = 0n;
     for (let i = 0; i < 32; i++) {
         scalar += BigInt(clampedScalar[i]) << BigInt(8 * i);
     }
-    return scalar;
+    return scalar % ED25519_N;
 }
 
 async function generateMeshCoreKeypair(nobleEd25519) {
@@ -69,9 +72,21 @@ async function generateMeshCoreKeypair(nobleEd25519) {
     };
 }
 
+// Match a public-key hex string against a pattern where `X` (or `?`) is a wildcard nibble.
+// Pattern is expected to be already uppercased and whitespace-stripped.
+function matchesPattern(publicKeyHex, pattern) {
+    if (pattern.length > publicKeyHex.length) return false;
+    for (let i = 0; i < pattern.length; i++) {
+        const p = pattern[i];
+        if (p === 'X' || p === '?') continue;
+        if (p !== publicKeyHex[i]) return false;
+    }
+    return true;
+}
+
 export async function searchVanityKey(options) {
     const {
-        targetPrefix,
+        targetPattern,
         batchSize = 256,
         getNobleEd25519,
         shouldStop,
@@ -87,7 +102,7 @@ export async function searchVanityKey(options) {
         throw new Error('noble-ed25519 is not initialized');
     }
 
-    const normalizedPrefix = targetPrefix.toUpperCase();
+    const normalizedPattern = targetPattern.replace(/\s+/g, '').toUpperCase();
     const effectiveBatchSize = Math.max(32, batchSize | 0);
 
     while (!shouldStop()) {
@@ -106,12 +121,11 @@ export async function searchVanityKey(options) {
                 continue;
             }
 
-            if (keypair.publicKey.startsWith(normalizedPrefix)) {
+            if (matchesPattern(keypair.publicKey, normalizedPattern)) {
                 return keypair;
             }
         }
 
-        // Yield to keep the UI responsive while brute-forcing in JS.
         await new Promise((resolve) => setTimeout(resolve, 0));
     }
 
